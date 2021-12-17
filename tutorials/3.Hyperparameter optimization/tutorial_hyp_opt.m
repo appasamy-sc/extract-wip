@@ -9,8 +9,10 @@ config=[];
 config = get_defaults(config);
 config.avg_cell_radius=7;
 
-% If you do not have a native NVIDIA GPU, MATLAB may throw an error. Uncomment the following if that is the case.
-% config.use_gpu=0;
+% If you do not have a native NVIDIA GPU, MATLAB may throw an error. 
+if gpuDeviceCount("available")==0 || gpuDevice().DeviceSupported==0
+   config.use_gpu=0;
+end
 
 % Decide the number of partitions based on available RAM and GPU memory. Typically, for a system with <=24 GB RAM, upto 10 x and y partitions would work. 
 config.num_partitions_x=10;
